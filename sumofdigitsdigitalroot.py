@@ -33,7 +33,7 @@ def digital_root(n):
 			print(x)
 			break
 		else:
-			print(x)
+			#print(x)
 			n = list(str(x))
 digital_root(16)
 digital_root(942)
