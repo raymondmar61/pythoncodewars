@@ -30,12 +30,21 @@ def digital_root(n):
 		for eachn in n:
 			x = int(eachn) + x
 		if len(str(x)) == 1:
-			print(x)
-			break
+			return x
 		else:
-			#print(x)
+			print(x)
 			n = list(str(x))
-digital_root(16)
-digital_root(942)
-digital_root(132189)
-digital_root(493193)
+print(digital_root(16))
+print(digital_root(942))
+print(digital_root(132189))
+print(digital_root(493193))
+print(digital_root(7777))
+print(digital_root(493193))
+print(digital_root(99))
+
+#a correct solution
+#https://stackoverflow.com/questions/50278875/why-doesnt-this-digital-root-function-work
+def digital_root(num):
+    if num < 10:
+        return num
+    return digital_root(sum(map(int, str(num))))
