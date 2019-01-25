@@ -31,5 +31,15 @@ def duplicateencoder(convertstring):
 # print(duplicateencoder("recede")) #print ()()()
 # print(duplicateencoder("Success")) #print )())())
 # print(duplicateencoder("(( @")) #print ))((
-print(duplicateencoder("llJFJbnueRcPz)@!OOuRvS")) #print )))))))))())))))(()())())(()(())()
-#print(duplicateencoder("llJFJbnueRcPz)@!OOuRvS")==")))()(()()(((((())))((")
+print(duplicateencoder("dldwwTwe())")) #print )))))))))())))))(()())())(()(())()
+
+# alist = ["a","b","c","d"]
+# blist = "abzcdabzcd"
+# blist = ["Z" if eachblist == "z" else eachblist for eachblist in blist]
+# print(blist)
+
+from collections import Counter
+def duplicate_encode(word):
+    word = word.lower()
+    counter = Counter(word)
+    return ''.join(('(' if counter[c] == 1 else ')') for c in word)
