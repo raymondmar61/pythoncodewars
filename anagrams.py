@@ -1,4 +1,5 @@
 #https://www.codewars.com/kata/523a86aa4230ebb5420001e1/train/python
+#5 Kyu earned
 """
 What is an anagram? Well, two words are anagrams of each other if they both contain the same letters. For example:
 'abba' & 'baab' == true
@@ -10,16 +11,21 @@ anagrams('abba', ['aabb', 'abcd', 'bbaa', 'dada']) => ['aabb', 'bbaa']
 anagrams('racer', ['crazer', 'carer', 'racar', 'caers', 'racer']) => ['carer', 'racer']
 anagrams('laser', ['lazing', 'lazy',  'lacer']) => []
 """
-from itertools import permutations, combinations, combinations_with_replacement
+from itertools import permutations
 def anagrams(word, words):
-	foundit = []
+	anagramlist = []
 	for eachword in permutations(word, len(word)):
 		eachword = ("".join(map(str, eachword)))
-		#print(eachword)
-		if eachword in words:
-			#print("yes")
-			foundit.append(eachword)
-	return list(set(foundit))
+		if eachword not in anagramlist:
+			anagramlist.append(eachword)	
+	print(anagramlist)
+	foundit = []
+	for eachwords in words:	
+		if len(eachwords) != len(word):
+			pass
+		if eachwords in anagramlist:
+				foundit.append(eachwords)
+	return foundit
 print(anagrams("abba",['aabb', 'abcd', 'bbaa', 'dada']))
 print(anagrams('racer', ['crazer', 'carer', 'racar', 'caers', 'racer']))
 print(anagrams('laser', ['lazing', 'lazy',  'lacer']))

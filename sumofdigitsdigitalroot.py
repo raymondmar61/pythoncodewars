@@ -1,4 +1,5 @@
 #https://www.codewars.com/kata/sum-of-digits-slash-digital-root
+#6 Kyu earned
 #In this kata, you must create a digital root function.  A digital root is the recursive sum of all the digits in a number. Given n, take the sum of the digits of n. If that value has two digits, continue reducing in this way until a single-digit number is produced. This is only applicable to the natural numbers.
 '''
 digital_root(16)
@@ -25,6 +26,8 @@ digital_root(493193)
 '''
 def digital_root(n):
 	n = list(str(n))
+	if len(n) == 1:
+		return 0
 	while len(n) != 1:
 		x = 0
 		for eachn in n:
