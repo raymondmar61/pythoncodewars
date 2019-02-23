@@ -35,3 +35,21 @@ print(scramble("scriptingjava", "javascript")) #print True
 print(scramble("wtwfnhwqyotjkiid", "iyikwdtjthnfqwow")) #print True
 print(scramble("pjhzddjljbo", "zohdpjdljbj")) #print True
 print(scramble("ngqpvbwdxkfxkvqh", "xwfwaibmkzbrzzcl")) #print False
+
+#https://www.reddit.com/r/learnpython/comments/3lo6b5/scrambled_string_comparison/
+#Subtract the letters Counter from the word Counter. If the difference is an empty Counter, the letters Counter has excessive letters (and counts), and the word can be made from some or all of the letters.
+from collections import Counter
+def scramble(s1, s2):
+    letters = Counter(s1)
+    word = Counter(s2)
+    diff = word - letters
+    return len(diff) == 0
+print(scramble('rkqodlw', 'world')) #print True
+print(scramble('cedewaraaossoqqyt', 'codewars')) #print True
+print(scramble('katas', 'steak')) #print False
+#RM:  time is 11333ms just below 12000ms
+
+#unknown website
+def scramble(s1,s2):
+    return all(s1.count(x) >= s2.count(x) for x in set(s2))
+#RM:  time is 10883ms just below 12000ms
