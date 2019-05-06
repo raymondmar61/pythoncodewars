@@ -21,6 +21,16 @@ Each calculation consist of exactly one operation and two numbers.
 The most outer function represents the left operand, the most inner function represents the right operand.
 Divison should be integer division, e.g eight(dividedBy(three()))/eight(divided_by(three)) should return 2, not 2.666666....
 '''
+#https://stackoverflow.com/questions/9752958/how-can-i-return-two-values-from-a-function-in-python
+#answer you cannot return two values.  You can return a tuple or a list follow by unpacking afterwards.
+def pluscantreturntwovalues(firstnumber):
+	operator = "plus"
+	return operator
+def plusCANreturntwovalues(firstnumber):
+	operator = "plus"
+	return [firstnumber, operator]
+print(pluscantreturntwovalues(5)) #print plus
+print(plusCANreturntwovalues(5)) #print [5, 'plus']
 
 #anter69
 def zero(arg=""):
@@ -333,30 +343,138 @@ listcheck = ['/', 8]
 print(listcheck[0]) #print /
 print(listcheck[1]) #print 8
 
-def zero(firstnumber_operator=None):
-	secondnumber = 0
-	if firstnumber_operator is None:
-		return secondnumber
-	elif firstnumber_operator[1] == "plus":
-		return firstnumber_operator[0] + secondnumber
-def one(firstnumber_operator=None):
-	secondnumber = 1
-	if firstnumber_operator is None:
-		return secondnumber
-def five(firstnumber_operator=None):
-	secondnumber = 5
-	if firstnumber_operator is None:
-		return secondnumber
-	elif firstnumber_operator[1] == "plus":
-		return firstnumber_operator[0] + secondnumber
-#https://stackoverflow.com/questions/9752958/how-can-i-return-two-values-from-a-function-in-python
-#answer you cannot return two values.  You can return a tuple or a list follow by unpacking afterwards.
-def pluscantreturntwovalues(firstnumber):
-	operator = "plus"
-	return operator
+def zero(secondnumber_operator=None):
+	firstnumber = 0
+	if secondnumber_operator is None:
+		return firstnumber
+	elif secondnumber_operator[1] == "plus":
+		return firstnumber + secondnumber_operator[0]
+	elif secondnumber_operator[1] == "minus":
+		return firstnumber - secondnumber_operator[0]
+	elif secondnumber_operator[1] == "times":
+		return firstnumber * secondnumber_operator[0]
+	elif secondnumber_operator[1] == "dividedby":
+		return firstnumber // secondnumber_operator[0]
+def one(secondnumber_operator=None):
+	firstnumber = 1
+	if secondnumber_operator is None:
+		return firstnumber
+	elif secondnumber_operator[1] == "plus":
+		return firstnumber + secondnumber_operator[0]
+	elif secondnumber_operator[1] == "minus":
+		return firstnumber - secondnumber_operator[0]
+	elif secondnumber_operator[1] == "times":
+		return firstnumber * secondnumber_operator[0]
+	elif secondnumber_operator[1] == "dividedby":
+		return firstnumber // secondnumber_operator[0]
+def two(secondnumber_operator=None):
+	firstnumber = 2
+	if secondnumber_operator is None:
+		return firstnumber
+	elif secondnumber_operator[1] == "plus":
+		return firstnumber + secondnumber_operator[0]
+	elif secondnumber_operator[1] == "minus":
+		return firstnumber - secondnumber_operator[0]
+	elif secondnumber_operator[1] == "times":
+		return firstnumber * secondnumber_operator[0]
+	elif secondnumber_operator[1] == "dividedby":
+		return firstnumber // secondnumber_operator[0]
+def three(secondnumber_operator=None):
+	firstnumber = 3
+	if secondnumber_operator is None:
+		return firstnumber
+	elif secondnumber_operator[1] == "plus":
+		return firstnumber + secondnumber_operator[0]
+	elif secondnumber_operator[1] == "minus":
+		return firstnumber - secondnumber_operator[0]
+	elif secondnumber_operator[1] == "times":
+		return firstnumber * secondnumber_operator[0]
+	elif secondnumber_operator[1] == "dividedby":
+		return firstnumber // secondnumber_operator[0]
+def four(secondnumber_operator=None):
+	firstnumber = 4
+	if secondnumber_operator is None:
+		return firstnumber
+	elif secondnumber_operator[1] == "plus":
+		return firstnumber + secondnumber_operator[0]
+	elif secondnumber_operator[1] == "minus":
+		return firstnumber - secondnumber_operator[0]
+	elif secondnumber_operator[1] == "times":
+		return firstnumber * secondnumber_operator[0]
+	elif secondnumber_operator[1] == "dividedby":
+		return firstnumber // secondnumber_operator[0]
+def five(secondnumber_operator=None):
+	firstnumber = 5
+	if secondnumber_operator is None:
+		return firstnumber
+	elif secondnumber_operator[1] == "plus":
+		return firstnumber + secondnumber_operator[0]
+	elif secondnumber_operator[1] == "minus":
+		return firstnumber - secondnumber_operator[0]
+	elif secondnumber_operator[1] == "times":
+		return firstnumber * secondnumber_operator[0]
+	elif secondnumber_operator[1] == "dividedby":
+		return firstnumber // secondnumber_operator[0]
+def six(secondnumber_operator=None):
+	firstnumber = 6
+	if secondnumber_operator is None:
+		return firstnumber
+	elif secondnumber_operator[1] == "plus":
+		return firstnumber + secondnumber_operator[0]
+	elif secondnumber_operator[1] == "minus":
+		return firstnumber - secondnumber_operator[0]
+	elif secondnumber_operator[1] == "times":
+		return firstnumber * secondnumber_operator[0]
+	elif secondnumber_operator[1] == "dividedby":
+		return firstnumber // secondnumber_operator[0]
+def seven(secondnumber_operator=None):
+	firstnumber = 7
+	if secondnumber_operator is None:
+		return firstnumber
+	elif secondnumber_operator[1] == "plus":
+		return firstnumber + secondnumber_operator[0]
+	elif secondnumber_operator[1] == "minus":
+		return firstnumber - secondnumber_operator[0]
+	elif secondnumber_operator[1] == "times":
+		return firstnumber * secondnumber_operator[0]
+	elif secondnumber_operator[1] == "dividedby":
+		return firstnumber // secondnumber_operator[0]
+def eight(secondnumber_operator=None):
+	firstnumber = 8
+	if secondnumber_operator is None:
+		return firstnumber
+	elif secondnumber_operator[1] == "plus":
+		return firstnumber + secondnumber_operator[0]
+	elif secondnumber_operator[1] == "minus":
+		return firstnumber - secondnumber_operator[0]
+	elif secondnumber_operator[1] == "times":
+		return firstnumber * secondnumber_operator[0]
+	elif secondnumber_operator[1] == "dividedby":
+		return firstnumber // secondnumber_operator[0]
+def nine(secondnumber_operator=None):
+	firstnumber = 9
+	if secondnumber_operator is None:
+		return firstnumber
+	elif secondnumber_operator[1] == "plus":
+		return firstnumber + secondnumber_operator[0]
+	elif secondnumber_operator[1] == "minus":
+		return firstnumber - secondnumber_operator[0]
+	elif secondnumber_operator[1] == "times":
+		return firstnumber * secondnumber_operator[0]
+	elif secondnumber_operator[1] == "dividedby":
+		return firstnumber // secondnumber_operator[0]
 def plus(firstnumber):
 	return [firstnumber,"plus"]
-print(one())
-print(plus(one()))
-print(zero(plus(one())))
-print(five(plus(one())))
+def minus(firstnumber):
+	return [firstnumber,"minus"]
+def times(firstnumber):
+	return [firstnumber,"times"]
+def dividedby(firstnumber):
+	return [firstnumber,"dividedby"]
+print(one()) #print 1
+print(plus(one())) #print [1, 'plus']
+print(zero(plus(one()))) #print 1
+print(five(plus(one()))) #print 6
+print(eight(minus(three()))) #print 5
+print(nine(dividedby(four()))) #print 2
+print(six(dividedby(two()))) #print 3
