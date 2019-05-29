@@ -16,6 +16,8 @@ Your task is to return a string giving these 3 values. For the example given abo
 
 Remarks:  If a result in seconds is ab.xy... it will be given truncated as ab.  If the given string is "" you will return ""
 '''
+#Sources:  https://stackoverflow.com/questions/38555327/extract-hours-and-minutes-from-string-python, https://stackoverflow.com/questions/12033905/using-python-to-create-an-average-out-of-a-list-of-times, https://stackoverflow.com/questions/3096953/how-to-calculate-the-time-interval-between-two-time-strings
+
 times = "01|15|59, 1|47|6, 01|17|20, 1|32|34, 2|3|17"
 timeslist = times.split(", ")
 print(timeslist) #print ['01|15|59', '1|47|6', '01|17|20', '1|32|34', '2|3|17']
@@ -26,10 +28,10 @@ while counter < timescount:
 	firsttime = timeslist[counter]
 	#print(firsttime)
 	firsttimelist = firsttime.split("|")
-	print(firsttimelist)
+	#print(firsttimelist)
 	timestring = ""
 	for eachfirsttimelist in firsttimelist:
-		print(eachfirsttimelist)
+		#print(eachfirsttimelist)
 		if len(eachfirsttimelist) == 1:
 			eachfirsttimelist="0"+eachfirsttimelist
 		if timestring.count(":") < 2:
@@ -39,6 +41,67 @@ while counter < timescount:
 	readytimeslist.append(timestring)
 	#print(firsttimelist)
 	counter +=1
-print(readytimeslist)
-searchword = "The quick brown fox"
-print(searchword.count("e"))
+#print(readytimeslist) #print ['01:15:59', '01:47:06', '01:17:20', '01:32:34', '02:03:17']
+#print("\n")
+
+# for eachreadytimeslist in readytimeslist:
+# 	hours, minutes, seconds = map(int, eachreadytimeslist.split(":"))
+# 	print(hours, minutes, seconds)
+# '''
+# 1 15 59
+# 1 47 6
+# 1 17 20
+# 1 32 34
+# 2 3 17
+# '''
+testtimemathlist = []
+from datetime import datetime
+from statistics import mean
+for eachreadytimeslist in timeslist:
+	time = datetime.strptime(eachreadytimeslist,"%H|%M|%S").strftime("%H|%M|%S")
+	#print(time)
+	testtimemathlist.append(time)
+print("Convert list to time",testtimemathlist)
+time_list = list(map(lambda s: int(s[6:8]) + 60*(int(s[3:5]) + 60*int(s[0:2])), testtimemathlist))
+print("Convert list to time in seconds",time_list)
+average = sum(time_list)/len(time_list)
+bigmins, secs = divmod(average, 60)
+hours, mins = divmod(bigmins, 60)
+print("Average "+"%02d|%02d|%02d" % (hours, mins, secs))
+s1 = min(testtimemathlist)
+s2 = max(testtimemathlist)
+FMT = '%H|%M|%S'
+tdelta = datetime.strptime(s2, FMT) - datetime.strptime(s1, FMT)
+print(tdelta)
+print(type(tdelta)) #print <class 'datetime.timedelta'>
+tdeltaproper = datetime.strptime(str(tdelta),"%H:%M:%S").strftime("%H|%M|%S")  #RM:  convert tdelta as datetime to string to manipulate time as string
+print("Range "+tdeltaproper)
+
+"""
+testtimemathlist = []
+from datetime import datetime
+from statistics import mean
+for eachreadytimeslist in readytimeslist:
+	time = datetime.strptime(eachreadytimeslist,"%H:%M:%S").strftime("%H:%M:%S")
+	print(time)
+	testtimemathlist.append(time)
+print(testtimemathlist)
+#print(mean(testtimemathlist))
+time_list = list(map(lambda s: int(s[6:8]) + 60*(int(s[3:5]) + 60*int(s[0:2])), testtimemathlist))
+print(time_list)
+average = sum(time_list)/len(time_list)
+bigmins, secs = divmod(average, 60)
+hours, mins = divmod(bigmins, 60)
+print("average "+"%02d:%02d:%02d" % (hours, mins, secs))
+print("average "+"%02d|%02d|%02d" % (hours, mins, secs))
+print(min(testtimemathlist))
+print(min(time_list))
+print(max(testtimemathlist))
+print(max(time_list))
+print(max(time_list)-min(time_list))
+s1 = min(testtimemathlist)
+s2 = max(testtimemathlist)
+FMT = '%H:%M:%S'
+tdelta = datetime.strptime(s2, FMT) - datetime.strptime(s1, FMT)
+print(tdelta)
+"""
