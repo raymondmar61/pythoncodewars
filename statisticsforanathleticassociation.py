@@ -18,90 +18,86 @@ Remarks:  If a result in seconds is ab.xy... it will be given truncated as ab.  
 '''
 #Sources:  https://stackoverflow.com/questions/38555327/extract-hours-and-minutes-from-string-python, https://stackoverflow.com/questions/12033905/using-python-to-create-an-average-out-of-a-list-of-times, https://stackoverflow.com/questions/3096953/how-to-calculate-the-time-interval-between-two-time-strings
 
-times = "01|15|59, 1|47|6, 01|17|20, 1|32|34, 2|3|17"
+times = "01|15|59, 1|47|6, 01|17|20, 1|32|34, 2|3|17, 21|8|55.23"
 timeslist = times.split(", ")
 print(timeslist) #print ['01|15|59', '1|47|6', '01|17|20', '1|32|34', '2|3|17']
-readytimeslist = []
-counter = 0
-timescount = len(timeslist)
-while counter < timescount:
-	firsttime = timeslist[counter]
-	#print(firsttime)
-	firsttimelist = firsttime.split("|")
-	#print(firsttimelist)
-	timestring = ""
-	for eachfirsttimelist in firsttimelist:
-		#print(eachfirsttimelist)
-		if len(eachfirsttimelist) == 1:
-			eachfirsttimelist="0"+eachfirsttimelist
-		if timestring.count(":") < 2:
-			timestring+=eachfirsttimelist+":"
-		else:
-			timestring+=eachfirsttimelist
-	readytimeslist.append(timestring)
-	#print(firsttimelist)
-	counter +=1
-#print(readytimeslist) #print ['01:15:59', '01:47:06', '01:17:20', '01:32:34', '02:03:17']
-#print("\n")
 
-# for eachreadytimeslist in readytimeslist:
-# 	hours, minutes, seconds = map(int, eachreadytimeslist.split(":"))
-# 	print(hours, minutes, seconds)
-# '''
-# 1 15 59
-# 1 47 6
-# 1 17 20
-# 1 32 34
-# 2 3 17
-# '''
-testtimemathlist = []
 from datetime import datetime
-from statistics import mean
+from statistics import mean, median
+def functionname(times):
+	if times == "":
+		return ""
+	timeslist = times.split(", ")
+	#Convert list to time
+	timemathlist = []
+	for eachreadytimeslist in timeslist:
+		microsecondsperiod = eachreadytimeslist.find(".")
+		if microsecondsperiod > 0:
+			eachreadytimeslist = eachreadytimeslist[0:microsecondsperiod]
+		print(eachreadytimeslist)
+		time = datetime.strptime(eachreadytimeslist,"%H|%M|%S").strftime("%H|%M|%S")		
+		timemathlist.append(time)
+	#Convert list to time in seconds
+	timelistinseconds = list(map(lambda s: int(s[6:8]) + 60*(int(s[3:5]) + 60*int(s[0:2])), timemathlist))
+	#Calculate range
+	s1 = min(timemathlist)
+	s2 = max(timemathlist)
+	formatrangetime = '%H|%M|%S'
+	calculaterangetime = datetime.strptime(s2, formatrangetime) - datetime.strptime(s1, formatrangetime)
+	calculaterangetimeproper = datetime.strptime(str(calculaterangetime),"%H:%M:%S").strftime("%H|%M|%S")  #RM:  convert calculaterangetime as datetime to string to manipulate time as string
+	rangetime = ("Range: "+calculaterangetimeproper)
+	#Calculate average
+	average = sum(timelistinseconds)/len(timelistinseconds)
+	bigmins, secs = divmod(average, 60)
+	hours, mins = divmod(bigmins, 60)
+	averagetime = ("Average: "+"%02d|%02d|%02d" % (hours, mins, secs))
+	#Calculate median
+	calculatemedian = median(timelistinseconds)
+	bigmins, secs = divmod(calculatemedian, 60)
+	hours, mins = divmod(bigmins, 60)
+	mediantime = ("Median: "+"%02d|%02d|%02d" % (hours, mins, secs))
+	#Range: 00|47|18 Average: 01|35|15 Median: 01|32|34	
+	teamresults = rangetime+" "+averagetime+" "+mediantime
+	return teamresults
+print(functionname(times))
+print(functionname(""))
+
+"""
+timemathlist = []
+from datetime import datetime
+from statistics import mean, median
 for eachreadytimeslist in timeslist:
 	time = datetime.strptime(eachreadytimeslist,"%H|%M|%S").strftime("%H|%M|%S")
 	#print(time)
-	testtimemathlist.append(time)
-print("Convert list to time",testtimemathlist)
-time_list = list(map(lambda s: int(s[6:8]) + 60*(int(s[3:5]) + 60*int(s[0:2])), testtimemathlist))
-print("Convert list to time in seconds",time_list)
+	timemathlist.append(time)
+print("Convert list to time",timemathlist) #print Convert list to time ['01|15|59', '01|47|06', '01|17|20', '01|32|34', '02|03|17']
+time_list = list(map(lambda s: int(s[6:8]) + 60*(int(s[3:5]) + 60*int(s[0:2])), timemathlist))
+print("Convert list to time in seconds",time_list) #print Convert list to time in seconds [4559, 6426, 4640, 5554, 7397]
 average = sum(time_list)/len(time_list)
 bigmins, secs = divmod(average, 60)
 hours, mins = divmod(bigmins, 60)
-print("Average "+"%02d|%02d|%02d" % (hours, mins, secs))
-s1 = min(testtimemathlist)
-s2 = max(testtimemathlist)
+print("Average "+"%02d|%02d|%02d" % (hours, mins, secs)) #print Average 01|35|15
+s1 = min(timemathlist)
+s2 = max(timemathlist)
 FMT = '%H|%M|%S'
 tdelta = datetime.strptime(s2, FMT) - datetime.strptime(s1, FMT)
-print(tdelta)
+print(tdelta) #print 0:47:18
 print(type(tdelta)) #print <class 'datetime.timedelta'>
 tdeltaproper = datetime.strptime(str(tdelta),"%H:%M:%S").strftime("%H|%M|%S")  #RM:  convert tdelta as datetime to string to manipulate time as string
-print("Range "+tdeltaproper)
-
-"""
-testtimemathlist = []
-from datetime import datetime
-from statistics import mean
-for eachreadytimeslist in readytimeslist:
-	time = datetime.strptime(eachreadytimeslist,"%H:%M:%S").strftime("%H:%M:%S")
-	print(time)
-	testtimemathlist.append(time)
-print(testtimemathlist)
-#print(mean(testtimemathlist))
-time_list = list(map(lambda s: int(s[6:8]) + 60*(int(s[3:5]) + 60*int(s[0:2])), testtimemathlist))
-print(time_list)
-average = sum(time_list)/len(time_list)
-bigmins, secs = divmod(average, 60)
+print("Range "+tdeltaproper) #print Range 00|47|18
+list3 = [4559, 6426, 4640, 5554, 7397]
+print(median(list3))
+mediantime = median(list3)
+bigmins, secs = divmod(mediantime, 60)
 hours, mins = divmod(bigmins, 60)
-print("average "+"%02d:%02d:%02d" % (hours, mins, secs))
-print("average "+"%02d|%02d|%02d" % (hours, mins, secs))
-print(min(testtimemathlist))
-print(min(time_list))
-print(max(testtimemathlist))
-print(max(time_list))
-print(max(time_list)-min(time_list))
-s1 = min(testtimemathlist)
-s2 = max(testtimemathlist)
-FMT = '%H:%M:%S'
-tdelta = datetime.strptime(s2, FMT) - datetime.strptime(s1, FMT)
-print(tdelta)
+print("Median "+"%02d|%02d|%02d" % (hours, mins, secs)) #print Median 01|32|34
 """
+
+stringlove = "search.53"
+print(stringlove.find("."))
+
+# import time
+# start = "00:00:00".time()
+# done = "30:15:20".time()
+# elapsed = done - start
+# print(elapsed)
