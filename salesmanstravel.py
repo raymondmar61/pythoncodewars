@@ -40,32 +40,24 @@ def travelraymondmar(ad):
 	adsplit = ad.split(",")
 	adgroupbylist = []
 	for eachadsplit in adsplit:
-		#get zip code
+		#extract zip code, address, and city
 		extractzipcode = len(eachadsplit)-5
 		zipcode = eachadsplit[extractzipcode:]
 		zipcode = zipcode.strip()
-		#check zip code is five digits or not five digits
-		if len(zipcode) == 5:
-			extractaddress = len(eachadsplit)-9
-			address = eachadsplit[0:extractaddress]
-			extractstatezipcode = len(eachadsplit)-8
-			statezipcode = eachadsplit[extractstatezipcode:]
-		else:
-			extractaddress = len(eachadsplit)-8
-			address = eachadsplit[0:extractaddress]
-			extractstatezipcode = len(eachadsplit)-7
-			statezipcode = eachadsplit[extractstatezipcode:]
+		extractaddress = len(eachadsplit)-9
+		address = eachadsplit[0:extractaddress]
+		extractstatezipcode = len(eachadsplit)-8
+		statezipcode = eachadsplit[extractstatezipcode:]
 		#create tuple for each address and zip code add to adgroupbylist
 		addtoadgroupbylist = (statezipcode, address)
 		adgroupbylist.append(addtoadgroupbylist)
-	print(adgroupbylist)
 	#sort adgroupbylist tuple list to groupby
 	adgroupbylist.sort()
 	for key, group in groupby(adgroupbylist, lambda x: x[0]):
 		#if invalid zip code, then print zipcode:/.  key is state and zip code.
-		if len(key[3:]) == 4:
-			print(key+":/")
-		#group by the key state and zip code.  Separate the street address by street number and street name
+		if (key[0]) == " ":
+			print(key[1:]+":/")
+		#group by the key state and zip code.  Separate the street address by street number and street name.
 		else:
 			liststreetnumber = []
 			liststreetname = []
@@ -80,109 +72,24 @@ def travelraymondmar(ad):
 			adgroupbylistname = ",".join(liststreetname)
 			print(key + ":"+adgroupbylistname+"/"+adgroupbylistnumber)
 travelraymondmar(ad)
-print("\n")
-
-adgroupbylist = []
-for eachadsplit in adsplit:
-	print("eachadsplit",eachadsplit)
-	extractzipcode = len(eachadsplit)-5
-	zipcode = eachadsplit[extractzipcode:]
-	zipcode = zipcode.strip()
-	print(zipcode)
-	print(len(zipcode))
-	if len(zipcode) == 5:
-		extractaddress = len(eachadsplit)-9
-		address = eachadsplit[0:extractaddress]
-		print(address)
-		extractstatezipcode = len(eachadsplit)-8
-		statezipcode = eachadsplit[extractstatezipcode:]
-		print(statezipcode)
-	else:
-		print(len(eachadsplit))
-		extractaddress = len(eachadsplit)-8
-		address = eachadsplit[0:extractaddress]
-		print(address)
-		extractstatezipcode = len(eachadsplit)-7
-		statezipcode = eachadsplit[extractstatezipcode:]
-		print(statezipcode)
-	addtoadgroupbylist = (statezipcode, address)
-	adgroupbylist.append(addtoadgroupbylist)
-print(adgroupbylist)
-adgroupbylist.sort()
-for key, group in groupby(adgroupbylist, lambda x: x[0]):
-	print("key",key)
-	if len(key[3:]) == 4:
-		print(key+":/")
-	else:
-		#listofadgroupbylist = ",".join([eachadgroupbylist[1] for eachadgroupbylist in group])
-		# listofadgroupbylist = ",".join([eachadgroupbylist[1] for eachadgroupbylist in group])
-		# print(key + ":"+listofadgroupbylist)
-		lovelistname = []
-		lovelistnumber = []
-		for eachadgroupbylist in group:			
-			streetaddress = eachadgroupbylist[1]
-			print(streetaddress)
-			streetnumberextract = streetaddress.find(" ")
-			streetnumber = streetaddress[0:streetnumberextract]
-			#print("streetnumber",streetnumber)
-			streetname = streetaddress[streetnumberextract+1:]
-			#print("streetname",streetname)
-			lovelistname.append(streetname)
-			lovelistnumber.append(streetnumber)
-		listofadgroupbylistname = ",".join(lovelistname)
-		listofadgroupbylistnumber = ",".join(lovelistnumber)
-		print(key + ":"+listofadgroupbylistname+"/"+listofadgroupbylistnumber)
-space = "3 Main Rd. Bern AE 56210"
-print(space.find(" "))
-
-#Examples:  r = "123 Main Street St. Louisville OH 43071, 432 Main Long Road St. Louisville OH 43071, 786 High Street Pollocksville NY 56432"
-#travel(r, "OH 43071") --> "OH 43071:Main Street St. Louisville,Main Long Road St. Louisville/123,432"
-#travel(r, "NY 56432") --> "NY 56432:High Street Pollocksville/786"
-#travel(r, "NY 5643") --> "NY 5643:/"
-
-def travel(address, statezipcode):
-	zipcodecheck = statezipcode[3:]
-	if len(zipcodecheck) != 5:
-		print(statezipcode+":/")
-		return
-	else:
-		pass
-	print(statezipcode+":rest")
-# travel("123 Main Street St. Louisville OH 43071","OH 43071")
-# travel("432 Main Long Road St. Louisville OH 43071","OH 43071")
-# travel("786 High Street Pollocksville NY 56432","NY 56432")
-# travel("786 High Street Pollocksville NY 56432","NY 5643")
-# travel(address, statezipcode)
-
-# for eachadsplit in adsplit:
-# 	extractaddress = len(eachadsplit)-9
-# 	address = eachadsplit[0:extractaddress]
-# 	extractstatezipcode = len(eachadsplit)-8
-# 	statezipcode = eachadsplit[extractstatezipcode:]
-# 	extractzipcode = len(eachadsplit)-5
-# 	zipcode = eachadsplit[extractzipcode:]
-# 	travel(address, statezipcode)
-"""
-love = "The quick brown fox"
-print(love[-5:]) #print n fox
-lovelist = []
-blanktuple = (55, 66)
-lovelist.append(blanktuple)
-blanktuple = (1000, 5066)
-lovelist.append(blanktuple)
-print(lovelist)
-
-#things = [("animal", "bear"), ("animal", "duck"), ("plant", "cactus"), ("vehicle", "speed boat"), ("vehicle", "school bus")]
-things = [("vehicle", "speed boat"), ("animal", "duck"), ("plant", "cactus"), ("animal", "bear"), ("vehicle", "school bus")]
-print(things)
-things.sort()
-print(things) #print [('animal', 'bear'), ('animal', 'duck'), ('plant', 'cactus'), ('vehicle', 'school bus'), ('vehicle', 'speed boat')]
-for key, group in groupby(things, lambda x: x[0]):
-	print("key {}. group{}".format(key, group))
-	for thing in group:
-		print("thing[0] {}".format(thing[0]))
-		print("A {} is a {}".format(thing[1], key))
-for key, group in groupby(things, lambda x: x[0]):
-	listofthings = " and ".join([thing[1] for thing in group])
-	print(key + "s:  "+listofthings+".")
-"""
+'''
+NY 5643:/
+AA 45521:Paris St. Abbeville,Paris bd. Abbeville/67,674
+AA 45522:Paris St. Abbeville,Paris St. Abbeville/67,670
+AE 56210:Main Rd. Bern,Main Al. Bern,Main Rd. Bern/3,320,3200
+AE 56215:Main Al. Bern/320
+EX 34342:Pussy Cat Rd. Chicago,Pussy Cat Rd. Chicago/10,100
+EX 34345:Pussy Cat Rd. Chicago/100
+GG 30654:Surta Alley Goodtown,Surta Avenue Goodtown/10,11
+GG 30655:Surta Avenue Goodville,Surta Avenue Goodville/11,114
+NY 56432:High Street Pollocksville/786
+OH 43071:Main Street St. Louisville,Main Long Road St. Louisville/123,432
+RE 13000:Gordon St. Atlanta,Gordon St. Atlanta,Gordon Park Atlanta,Gordon St. Atlanta,Gordon Road Atlanta,Gordon Road Atlanta,Gordon St. Atlanta/1,10,14,2,5,58,77
+RE 13001:Gordon Road Atlanta/5
+RE 13200:Gordon Park Atlanta/14
+RE 13222:Gordon St. Atlanta/2
+SW 43098:Tokyo Av. Tedmondville,Tokyo Av. Tedmondville/22,2200
+SW 43198:Tokyo Av. Tedmondville,Tokyo Av. Tedmondville/2200,2222
+ZP 32908:Holy Grail Street Niagara Town,Holy Grail Al. Niagara Town,Holy Grail Street Niagara Town/2,45,54
+ZP 32918:Holy Grail Al. Niagara Town/45
+'''
