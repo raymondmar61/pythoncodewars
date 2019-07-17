@@ -1,7 +1,20 @@
+#https://www.codewars.com/kata/56af1a20509ce5b9b000001e/train/python
+#6 Kyu earned
+#A traveling salesman has to visit clients. He got each client's address e.g. "432 Main Long Road St. Louisville OH 43071" as a list.
+#The basic zipcode format usually consists of two capital letters followed by a white space and five digits. The list of clients to visit was given as a string of all addresses, each separated from the others by a comma, e.g.:  "123 Main Street St. Louisville OH 43071, 432 Main Long Road St. Louisville OH 43071, 786 High Street Pollocksville NY 56432".
+#To ease his travel he wants to group the list by zipcode.
+
+#Task:  The function travel will take two parameters r (addresses' list of all clients' as a string) and zipcode and returns a string in the following format:  zipcode:street and town,street and town,.../house number,house number,....  The street numbers must be in the same order as the streets where they belong.  If a given zipcode doesn't exist in the list of clients' addresses return "zipcode:/"
+
 #Examples:  r = "123 Main Street St. Louisville OH 43071, 432 Main Long Road St. Louisville OH 43071, 786 High Street Pollocksville NY 56432"
 #travel(r, "OH 43071") --> "OH 43071:Main Street St. Louisville,Main Long Road St. Louisville/123,432"
 #travel(r, "NY 56432") --> "NY 56432:High Street Pollocksville/786"
 #travel(r, "NY 5643") --> "NY 5643:/"
+
+#Note for Elixir:  In Elixir the empty addresses' input is an empty list, not an empty string.
+#Note:  You can see a few addresses and zipcodes in the test cases.
+
+#Sources:  Learn https://stackoverflow.com/questions/773/how-do-i-use-pythons-itertools-groupby GroupBy.
 from itertools import groupby
 
 ad = ("123 Main Street St. Louisville OH 43071,432 Main Long Road St. Louisville OH 43071,786 High Street Pollocksville NY 56432,"
@@ -68,3 +81,25 @@ print(travel(ad, "EX 34342"))
 print(travel(ad, "EX 34345"))
 print(travel(ad, "AA 45521"))
 print(travel(ad, "AE 56215"))
+print("\n")
+
+#selected user solutions
+#bfirest1, akaba regy
+def travelba(r, zipcode):
+	streets = []
+	nums = []
+	#create a list of addresses
+	addresses = r.split(',')
+	for address in addresses:		
+		#split each address to separate.  Extract and check state code and zip code match variable zipcode 
+		if ' '.join(address.split()[-2:]) == zipcode:
+			#Extract street name append to streets list
+			streets.append(' '.join(address.split()[1:-2]))
+			#Extract street number as a single string append to nums list using +=
+			nums += address.split()[:1]
+			print(nums) #print #['123']\n '123', '432']
+	return '{}:{}/{}'.format(zipcode, ','.join(streets), ','.join(nums))
+print(travelba(ad, "OH 43071")) #print OH 43071:Main Street St. Louisville,Main Long Road St. Louisville/123,432
+
+
+
