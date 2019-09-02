@@ -6,35 +6,55 @@
 #When all numbers are on the chessboard each in turn we toss a coin. The one who get "head" wins and the other gives him, in dollars, the sum of the numbers on the chessboard. We play for fun, the dollars come from a monopoly game!
 #How much can I (or my friend) win or loses for each game if the chessboard has n rows and n columns? Add all of the fractional values on an n by n sized board and give the answer as a simplified fraction.
 #For Python, the function called 'game' with parameter n (integer >= 0) returns as result an irreducible fraction written as an array of integers: [numerator, denominator]. If the denominator is 1 return [numerator].
-
 #test.assert_equals(game(0), [0])
 #test.assert_equals(game(1), [1, 2])
 #test.assert_equals(game(8), [32])
 
 import numpy as np
 
-def game(n):
-	chessboard = []
-	for eachrow in range(1,n+1):
-		chessboardrow = []
-		for eachcolumn in range(1,n+1):
-			#print("{} / {}+{}" .format(eachcolumn, eachrow, eachcolumn))
-			#print(eachcolumn/(eachrow+eachcolumn))
-			square = eachcolumn/(eachrow+eachcolumn)
-			chessboardrow.append(square)
-		chessboard.append(chessboardrow)
-	#print(chessboard)
-	chessboardarray = np.array(chessboard)
-	print(np.sum(chessboardarray))
-game(0)
-game(1)
-game(8)
+# def game(n):
+# 	chessboard = []
+# 	for eachrow in range(1,n+1):
+# 		chessboardrow = []
+# 		for eachcolumn in range(1,n+1):
+# 			#print("{} / {}+{}" .format(eachcolumn, eachrow, eachcolumn))
+# 			#print(eachcolumn/(eachrow+eachcolumn))
+# 			square = eachcolumn/(eachrow+eachcolumn)
+# 			chessboardrow.append(square)
+# 		chessboard.append(chessboardrow)
+# 	#print(chessboard)
+# 	chessboardarray = np.array(chessboard)
+# 	print(np.sum(chessboardarray))
+# game(0)
+# game(1)
+# game(8)
+# #bonus insert a value at the end of an array https://github.com/numpy/numpy/issues/11705
+# a = np.arange(4)
+# print(a) # print [0 1 2 3]
+# b = np.insert(a, len(a), values=9)
+# print(b) #print [0 1 2 3 9]
 
+size = 3
+#https://stackoverflow.com/questions/37237954/calculate-the-lcm-of-a-list-of-given-numbers-in-python
+from math import gcd  #from fractions import gcd
+from functools import reduce #Needed for Python3.x
+#uniquedenominators = [n for n in range(2,(size*2)+1)]
+uniquedenominators = np.arange(2,(size*2)+1)
+print(uniquedenominators)
+def lcm(denominators):
+	return reduce(lambda a,b: a*b // gcd(a,b), denominators)
+lowestcommonmultiple = lcm(uniquedenominators)
+print(lowestcommonmultiple)
 
+numeratorcolumn = [n for n in range(1,size+1)]*size
+denominatorrow = []
+for row in range(1,size+1):
+	for denominator in range(1,size+1):
+		denominatorrow.append(row+denominator)
+for n in range(0,size*size):
+	numeratorcolumn[n] = (lowestcommonmultiple//denominatorrow[n])*numeratorcolumn[n]
+print("Numerator",sum(numeratorcolumn))
+print("Denominator",lowestcommonmultiple)
+print(sum(numeratorcolumn)/lowestcommonmultiple)
 
-#bonus insert a value at the end of an array https://github.com/numpy/numpy/issues/11705
-a = np.arange(4)
-print(a) # print [0 1 2 3]
-b = np.insert(a, len(a), values=9)
-print(b) #print [0 1 2 3 9]
 
