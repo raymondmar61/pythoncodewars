@@ -1,4 +1,5 @@
 #https://www.codewars.com/kata/playing-on-a-chessboard
+#6 Kyu
 #With a friend we used to play the following game on a chessboard (8, rows, 8 columns). On the first row at the bottom we put numbers:  1/2, 2/3, 3/4, 4/5, 5/6, 6/7, 7/8, 8/9
 #On row 2 (2nd row from the bottom) we have:  1/3, 2/4, 3/5, 4/6, 5/7, 6/8, 7/9, 8/10
 #On row 3:  1/4, 2/5, 3/6, 4/7, 5/8, 6/9, 7/10, 8/11
@@ -34,27 +35,78 @@ import numpy as np
 # b = np.insert(a, len(a), values=9)
 # print(b) #print [0 1 2 3 9]
 
-size = 3
+size = 1
 #https://stackoverflow.com/questions/37237954/calculate-the-lcm-of-a-list-of-given-numbers-in-python
 from math import gcd  #from fractions import gcd
 from functools import reduce #Needed for Python3.x
 #uniquedenominators = [n for n in range(2,(size*2)+1)]
 uniquedenominators = np.arange(2,(size*2)+1)
-print(uniquedenominators)
-def lcm(denominators):
-	return reduce(lambda a,b: a*b // gcd(a,b), denominators)
-lowestcommonmultiple = lcm(uniquedenominators)
-print(lowestcommonmultiple)
+#print(uniquedenominators)
+# def lcm(denominators):
+# 	return reduce(lambda a,b: a*b // gcd(a,b), denominators)
+# lowestcommonmultiple = lcm(uniquedenominators)
+# print(lowestcommonmultiple)
 
-numeratorcolumn = [n for n in range(1,size+1)]*size
-denominatorrow = []
-for row in range(1,size+1):
-	for denominator in range(1,size+1):
-		denominatorrow.append(row+denominator)
-for n in range(0,size*size):
-	numeratorcolumn[n] = (lowestcommonmultiple//denominatorrow[n])*numeratorcolumn[n]
-print("Numerator",sum(numeratorcolumn))
-print("Denominator",lowestcommonmultiple)
-print(sum(numeratorcolumn)/lowestcommonmultiple)
+# numeratorcolumn = np.array([n for n in range(1,size+1)]*size)
+# denominatorrow = np.array([])
+# dollars = []
+# for row in range(1,size+1):
+# 	for denominator in range(1,size+1):
+# 		#denominatorrow.append(row+denominator)
+# 		denominatorrow = np.append(denominatorrow, np.array([row+denominator]))
+# for n in range(0,size*size):
+# 	numeratorcolumn[n] = (lowestcommonmultiple//denominatorrow[n])*numeratorcolumn[n]
+# numerator = np.sum([numeratorcolumn])
+# denominator = lowestcommonmultiple
+# if numerator % denominator == 0:
+# 	dollars.append(numerator//denominator)
+# else:
+# 	dollars.append(numerator)
+# 	dollars.append(denominator)	
+# print(dollars)
+
+
+def game(size):
+	if size == 0:
+		return [0]
+
+	def lcm(denominators):
+		return reduce(lambda a,b: a*b // gcd(a,b), denominators)	
+
+	uniquedenominators = np.arange(2,(size*2)+1)
+	lowestcommonmultiple = lcm(uniquedenominators)
+	numeratorcolumn = np.array([n for n in range(1,size+1)]*size)
+	denominatorrow = np.array([])
+	dollars = []
+	for row in range(1,size+1):
+		for denominator in range(1,size+1):
+			#denominatorrow.append(row+denominator)
+			denominatorrow = np.append(denominatorrow, np.array([row+denominator]))
+	for n in range(0,size*size):
+		numeratorcolumn[n] = (lowestcommonmultiple//denominatorrow[n])*numeratorcolumn[n]
+	numerator = np.sum([numeratorcolumn])
+	denominator = lowestcommonmultiple
+	if numerator % denominator == 0:
+		dollars.append(numerator//denominator)
+	else:
+		dollars.append(numerator)
+		dollars.append(denominator)	
+	return dollars
+print(game(0))
+print(game(1))
+print(game(3))
+print(game(8))
+
+
+#numpy method
+# numerator = sum(numeratorcolumn)
+# denominator = lowestcommonmultiple
+# dollars = np.array([], dtype=np.int64)
+# if numerator % denominator == 0:
+# 	dollars = np.append(dollars, np.array([numerator//denominator]))
+# else:
+# 	dollars = np.append(dollars, np.array([numerator]))
+# 	dollars = np.append(dollars, np.array([denominator]))
+# print(dollars)
 
 
