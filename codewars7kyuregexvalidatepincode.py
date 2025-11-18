@@ -13,7 +13,7 @@ Examples (Input --> Output)
 '''
 import re
 def validate_pin(pin):
-    pinnumberregex = re.compile(r"^\d\d\d\d$|^\d\d\d\d\d\d$")
+    pinnumberregex = re.compile(r"\d\d\d\d$|\d\d\d\d\d\d$")
     # checkvalidpin = pinnumberregex.search(pin)
     checkvalidpin = re.fullmatch(pinnumberregex, pin)
     if checkvalidpin:
@@ -41,13 +41,12 @@ print(validate_pin("123456\n")) #print False
 
 '''
 \\d Any numeric digit from 0 to 9.
-Use the caret character before defining the character class as the negative or not
 Use the dollar character after defining the character class.  Must end with dollar sign.
 Pipe | is the or.
 '''
 pin = "123456"
-# pinnumberregex = re.compile(r"^\d\d\d\d$|^\d\d\d\d\d\d$")
-pinnumberregex = re.compile(r"^(\d{4}|\d{6})$")
+# pinnumberregex = re.compile(r"\d\d\d\d$|\d\d\d\d\d\d$")
+pinnumberregex = re.compile(r"(\d{4}|\d{6})$")
 '''
 fullmatch will only return a match object if the entire string matches the pattern. But since we don't have that function in the earlier versions, this behaviour can be simulated by adding a "$" at the end of our pattern. It shows that we want this pattern to only match the end of the string and match function matches the characters from the beginning only. So combining these properties, we get a pattern that will only match the entire string
 '''
