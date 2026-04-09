@@ -125,6 +125,57 @@ def mix(s1, s2):
     s.sort(key=len, reverse=True)
     return "/".join(s)
 
+def mix(s1, s2):
+    s = []
+    lett = "abcdefghijklmnopqrstuvwxyz"
+    for ch in lett:
+        val1, val2 = s1.count(ch), s2.count(ch)
+        if max(val1, val2) >= 2:
+            print(f"{ch}:  Value1 {val1}.  Value2 {val2}.")
+            if val1 > val2:
+                print("1:" + val1 * ch)
+                s.append("1:" + val1 * ch)
+            elif val1 < val2:
+                print("2:" + val2 * ch)
+                s.append("2:" + val2 * ch)
+            else:
+                print("=:" + val1 * ch)
+                s.append("=:" + val1 * ch)
+    print(f"Unsorted {s}")
+    s.sort()
+    print(f"Sorted {s}")
+    s.sort(key=len, reverse=True)
+    print(f"Sorted with key=len reversed {s}")
+    return "/".join(s)
+
+
+print(mix(" In many languages", " there's a pair of functions"))
+'''
+a:  Value1 3.  Value2 2.
+1:aaa
+e:  Value1 1.  Value2 2.
+2:ee
+f:  Value1 0.  Value2 2.
+2:ff
+g:  Value1 2.  Value2 0.
+1:gg
+i:  Value1 0.  Value2 2.
+2:ii
+n:  Value1 3.  Value2 2.
+1:nnn
+o:  Value1 0.  Value2 2.
+2:oo
+r:  Value1 0.  Value2 2.
+2:rr
+s:  Value1 1.  Value2 2.
+2:ss
+t:  Value1 0.  Value2 2.
+2:tt
+Unsorted ['1:aaa', '2:ee', '2:ff', '1:gg', '2:ii', '1:nnn', '2:oo', '2:rr', '2:ss', '2:tt']
+Sorted ['1:aaa', '1:gg', '1:nnn', '2:ee', '2:ff', '2:ii', '2:oo', '2:rr', '2:ss', '2:tt']
+Sorted with key=len reversed ['1:aaa', '1:nnn', '1:gg', '2:ee', '2:ff', '2:ii', '2:oo', '2:rr', '2:ss', '2:tt']
+1:aaa/1:nnn/1:gg/2:ee/2:ff/2:ii/2:oo/2:rr/2:ss/2:tt
+'''
 
 from collections import Counter
 
